@@ -31,7 +31,7 @@ body {
 .container {
     width: 52.5vw;
     margin: 0 auto;
-    padding: 1.39vw;
+    padding: 1rem;
 }
   
 header {
@@ -54,32 +54,28 @@ main {
     transition: background 0.2s ease;
 }
   
-#text-display {
-    font-size: 1.3rem;
-    line-height: 1.8;
-    margin-bottom: 1.39vw;
-    padding: 1.5rem;
-    background: var(--card-background);
-    border-radius: 1.11vw;
-    box-shadow: 0 0.42vw 0.83vw rgba(0, 0, 0, 0.4);
-    transition: background 0.2s ease;
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
-}
-  
 .correct {
     color: var(--accent-color);
 }
-  
 .incorrect {
-    color: #FF4C4C;
-    text-decoration: underline;
+    color: red;
+    transform: scale(1.1);
 }
   
 .current {
-    background-color: rgba(114, 137, 218, 0.2);
+    background-color: rgba(114, 137, 218, 0.3);
     border-bottom: 2px solid var(--accent-color);
+    transition: background-color 0.15s ease;
 }
   
+#text-display {
+    font-size: 2rem;
+    overflow-x: auto; 
+    padding: 1rem;
+    background: transparent; 
+    margin-bottom: 2rem;
+}
+
 #input-field {
     width: 100%;
     padding: 0.97vw;
@@ -154,7 +150,7 @@ footer {
 }
   
 #text-display span {
-    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out;
+    transition: color 0.15s, background-color 0.15s, transform 0.1s ease-in-out;
     font-size: 1.2rem;
     padding: 0.02rem;
     letter-spacing: normal;

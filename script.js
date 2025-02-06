@@ -103,44 +103,43 @@ function handleKeyDown(event) {
   if (!isTestActive) {
     startTimer();
   }
-  if (event.key === 'Backspace') {
+
+  if (event.key === "Backspace") {
     if (currentIndex > 0) {
       currentIndex--;
-      const span = textDisplay.querySelectorAll('span')[currentIndex];
-      if (span) {
-        span.classList.remove('correct', 'incorrect');
-        span.classList.add('current');
-      }
+      const span = textDisplay.children[currentIndex];
+      span.classList.remove("correct", "incorrect");
+      markCurrentChar(currentIndex);
     }
     updateAccuracy();
     return;
   }
+
   if (event.key.length !== 1) return;
+
   totalKeystrokes++;
   const expectedChar = quoteCharacters[currentIndex];
-  const span = textDisplay.querySelectorAll('span')[currentIndex];
-  if (!span) {
-    console.error('No span element found for currentIndex:', currentIndex);
-    return;
-  }
+  const span = textDisplay.children[currentIndex];
+
   if (event.key === expectedChar) {
-    span.classList.add('correct');
-    span.classList.remove('incorrect');
+    span.classList.add("correct");
   } else {
-    span.classList.add('incorrect');
-    span.classList.remove('correct');
+    span.classList.add("incorrect");
     errorCount++;
   }
+  
   span.dataset.user = event.key;
   currentIndex++;
   markCurrentChar(currentIndex);
   updateAccuracy();
   updateWPM();
+
   if (currentIndex === quoteCharacters.length) {
     clearInterval(timerInterval);
     isTestActive = false;
   }
 }
+
 
 document.addEventListener('keydown', handleKeyDown);
 
