@@ -24,7 +24,6 @@ function preFetchWords() {
       const words = data.split('\n')
         .map(word => word.trim())
         .filter(word => word.length > 0);
-      
       const selectedWords = [];
       const count = 30;
       for (let i = 0; i < count; i++) {
@@ -35,7 +34,7 @@ function preFetchWords() {
     })
     .catch(error => {
       console.error('Error fetching words.txt:', error);
-      return 'fejl ved hentning af ord';
+      return 'error fetching words';
     });
 }
 
@@ -51,7 +50,7 @@ async function fetchNewSentence() {
 
 function initializeQuote(quoteText) {
   if (!quoteText) {
-    console.error('initializeQuote: quoteText is undefined or empty.');
+    console.error('No quote text available.');
     return;
   }
   textDisplay.innerHTML = '';
@@ -64,7 +63,7 @@ function initializeQuote(quoteText) {
   markCurrentChar(0);
   currentIndex = 0;
   isTestActive = false;
-  if (timerInterval) clearInterval(timerInterval);
+  clearInterval(timerInterval);
   startTime = null;
   totalKeystrokes = 0;
   errorCount = 0;
@@ -95,39 +94,40 @@ function updateWPM() {
 }
 
 function updateAccuracy() {
-  const accuracy = totalKeystrokes > 0 ? Math.round(((totalKeystrokes - errorCount) / totalKeystrokes) * 100) : 0;
+  const accuracy = totalKeystrokes > 0 ? Math.round(((totalKeystrokes - errorCount) / totalKeystrokes) * 100) : 100;
   accuracyElement.textContent = accuracy;
 }
 
 function handleKeyDown(event) {
+  // Start timer on first keystroke
   if (!isTestActive) {
     startTimer();
   }
-
-  if (event.key === "Backspace") {
+  // Allow backspace for corrections
+  if (event.key === 'Backspace') {
     if (currentIndex > 0) {
       currentIndex--;
       const span = textDisplay.children[currentIndex];
-      span.classList.remove("correct", "incorrect");
+      span.classList.remove('correct', 'incorrect');
       markCurrentChar(currentIndex);
     }
     updateAccuracy();
     return;
   }
-
+  // Process only single character keys
   if (event.key.length !== 1) return;
 
   totalKeystrokes++;
   const expectedChar = quoteCharacters[currentIndex];
   const span = textDisplay.children[currentIndex];
+  if (!span) return;
 
   if (event.key === expectedChar) {
-    span.classList.add("correct");
+    span.classList.add('correct');
   } else {
-    span.classList.add("incorrect");
+    span.classList.add('incorrect');
     errorCount++;
   }
-  
   span.dataset.user = event.key;
   currentIndex++;
   markCurrentChar(currentIndex);
@@ -140,13 +140,12 @@ function handleKeyDown(event) {
   }
 }
 
-
 document.addEventListener('keydown', handleKeyDown);
 
 resetBtn.addEventListener('click', async () => {
   clearInterval(timerInterval);
   wpmElement.textContent = 0;
-  accuracyElement.textContent = 0;
+  accuracyElement.textContent = 100;
   await fetchNewSentence();
 });
 

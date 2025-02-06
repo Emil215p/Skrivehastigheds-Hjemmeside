@@ -1,11 +1,12 @@
 <!DOCTYPE html>
-<html lang="da">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Skrivehastighedsside</title>
+    <title>Monkeytype-like Typing Test</title>
+    <!-- You can swap to a monospaced font like "Roboto Mono" for a typewriter feel -->
     <link
-      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="style.css" />
@@ -13,22 +14,24 @@
   <body>
     <div class="container">
       <header>
-        <h1>Skrivehastighedsside</h1>
+        <h1>Skrivehastigheds Test</h1>
       </header>
       <main>
         <section id="test-area">
+          <!-- This element displays the text to type -->
           <div id="text-display"></div>
+          <!-- Statistics area similar to Monkeytype -->
           <div id="stats">
             <div class="stat-box">
-              <h3>Hastighed</h3>
-              <span id="wpm">0</span> WPM
+              <h3>WPM</h3>
+              <span id="wpm">0</span>
             </div>
             <div class="stat-box">
               <h3>Præcision</h3>
-              <span id="accuracy">0</span>%
+              <span id="accuracy">100</span>%
             </div>
           </div>
-          <button id="reset-btn">Genstart test</button>
+          <button id="reset-btn">Genstart Test</button>
         </section>
       </main>
       <footer>
