@@ -1,10 +1,12 @@
 :root {
-    --background-color: #121212;
+    --background-color: #1c1c1c;
     --container-bg: #121212;
+    --current-word-bg: #2a2a2a;
     --text-color: #f0f0f0;
-    --accent-color: #7289da;
-    --correct-color: #7289da;
-    --incorrect-color: #ff4c4c;
+    --text-display-color: #777777;
+    --accent-color: #7b5fe4;
+    --correct-color: #d1d0c5;
+    --incorrect-color: #ca4754;;
     --font-family: 'Roboto Mono', monospace;
   }
   
@@ -48,6 +50,7 @@
     overflow-wrap: break-word;
     text-align: center;
     margin-bottom: 1.5rem;
+    color: var(--text-display-color);
   }
   
   #text-display span {
@@ -64,8 +67,8 @@
   }
   
   .current {
-    background-color: rgba(114, 137, 218, 0.2);
-    border-bottom: 2px solid var(--accent-color);
+    background-color: rgba(255, 255, 255, 0.1);
+    border-bottom: 2px solid var(--text-color);
   }
   
   #stats {
@@ -114,3 +117,39 @@
     font-size: 0.9rem;
     color: #b3b3b3;
   }  
+
+  .mode-selector {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin: 1rem 0;
+  }
+  
+  .mode-btn {
+    background: none;
+    border: 1px solid var(--text-display-color);
+    padding: 0.5rem 1rem;
+  }
+  
+  .mode-btn.active {
+    border-color: var(--accent-color);
+  }
+
+  #progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 3px;
+    background: var(--accent-color);
+    transition: width 0.1s ease;
+  }
+  
+  /* Word mode highlighting */
+  .word {
+    margin-right: 0.5em;
+  }
+  
+  .current-word {
+    background: var(--current-word-bg);
+    border-radius: 3px;
+  }

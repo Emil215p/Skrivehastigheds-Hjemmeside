@@ -12,6 +12,31 @@ let nextSentence = null;
 let totalKeystrokes = 0;
 let errorCount = 0;
 
+let testMode = 'words';
+let testTime = 30; // seconds
+let wordCount = 25;
+
+async function resetTest() {
+  clearInterval(timerInterval);
+  wpmElement.textContent = 0;
+  accuracyElement.textContent = 100;
+  await fetchNewSentence();
+  currentIndex = 0;
+  startTime = null;
+  isTestActive = false;
+  totalKeystrokes = 0;
+  errorCount = 0;
+}
+
+document.querySelectorAll('.mode-btn').forEach(btn => {
+  btn.addEventListener('click', async () => { // Make async
+    document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    testMode = btn.dataset.mode;
+    await resetTest(); // Add await
+  });
+});
+
 function preFetchWords() {
   return fetch('words.txt')
     .then(response => {
@@ -87,15 +112,56 @@ function startTimer() {
 }
 
 function updateWPM() {
-  const correctCount = totalKeystrokes - errorCount;
-  const elapsedTime = (Date.now() - startTime) / 1000 / 60;
-  const wpm = elapsedTime > 0 ? Math.round(correctCount / 5 / elapsedTime) : 0;
+  if (!startTime) return;
+  
+  const elapsedSeconds = (Date.now() - startTime) / 1000;
+  const correctCharacters = currentIndex - errorCount;
+  
+  let wpm;
+  if (testMode === 'time') {
+    wpm = Math.round((correctCharacters / 5) / (elapsedSeconds / 60));
+  } else {
+    const wordCount = textDisplay.textContent.split(' ').length;
+    wpm = Math.round((wordCount / elapsedSeconds) * 60);
+  }
+  
   wpmElement.textContent = wpm;
 }
+
 
 function updateAccuracy() {
   const accuracy = totalKeystrokes > 0 ? Math.round(((totalKeystrokes - errorCount) / totalKeystrokes) * 100) : 100;
   accuracyElement.textContent = accuracy;
+}
+
+function createProgressBar() {
+  const progress = document.createElement('div');
+  progress.id = 'progress';
+  document.body.appendChild(progress);
+  
+  return () => {
+    const progressWidth = (currentIndex / quoteCharacters.length) * 100;
+    progress.style.width = `${progressWidth}%`;
+  };
+}
+const updateProgress = createProgressBar();
+
+const themes = {
+  dark: {
+    '--background-color': '#1c1c1c',
+    '--correct-color': '#d1d0c5',
+  },
+  light: {
+    '--background-color': '#ffffff',
+    '--correct-color': '#2a2a2a',
+  }
+};
+
+function setTheme(themeName) {
+  const theme = themes[themeName];
+  Object.entries(theme).forEach(([varName, value]) => {
+    document.documentElement.style.setProperty(varName, value);
+  });
 }
 
 function handleKeyDown(event) {
@@ -133,6 +199,7 @@ function handleKeyDown(event) {
   markCurrentChar(currentIndex);
   updateAccuracy();
   updateWPM();
+  updateProgress();
 
   if (currentIndex === quoteCharacters.length) {
     clearInterval(timerInterval);

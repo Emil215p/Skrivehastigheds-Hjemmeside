@@ -3,8 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Monkeytype-like Typing Test</title>
-    <!-- You can swap to a monospaced font like "Roboto Mono" for a typewriter feel -->
+    <title>Side</title>
     <link
       href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap"
       rel="stylesheet"
@@ -16,11 +15,14 @@
       <header>
         <h1>Skrivehastigheds Test</h1>
       </header>
+      <div class="mode-selector">
+        <button class="mode-btn active" data-mode="words">Words</button>
+        <button class="mode-btn" data-mode="time">Time</button>
+        <button class="mode-btn" data-mode="quote">Quote</button>
+      </div>
       <main>
         <section id="test-area">
-          <!-- This element displays the text to type -->
           <div id="text-display"></div>
-          <!-- Statistics area similar to Monkeytype -->
           <div id="stats">
             <div class="stat-box">
               <h3>WPM</h3>
