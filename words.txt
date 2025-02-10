@@ -128,7 +128,6 @@ fodbold
 tennis
 løbet
 svøm
-café
 bydel
 vejen
 broen
@@ -376,7 +375,6 @@ humorist
 hvileløst
 hygiejne
 hypotese
-idéernes
 idealist
 igangværende
 immigrant
@@ -642,7 +640,6 @@ hvile
 hylle
 hynde
 hytte
-idéer
 jager
 javel
 jordb

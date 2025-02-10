@@ -144,7 +144,6 @@
     transition: width 0.1s ease;
   }
   
-  /* Word mode highlighting */
   .word {
     margin-right: 0.5em;
   }
@@ -152,4 +151,67 @@
   .current-word {
     background: var(--current-word-bg);
     border-radius: 3px;
+  }
+
+#timer-display {
+    text-align: center;
+    font-size: 18px;
+    color: #e4e4e4;
+    margin: 10px 0;
+  }
+  
+  #progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%; 
+    height: 3px;
+    background: #7b5fe4; 
+    transition: width 0.1s linear;
+    z-index: 1000;
+  }
+  
+  .modal {
+    display: none;
+    position: fixed;
+    z-index: 2000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background: rgba(0, 0, 0, 0.6);
+  }
+  
+  .modal-content {
+    background: #131313;
+    margin: 10% auto;
+    padding: 30px;
+    border-radius: 6px;
+    width: 80%;
+    max-width: 400px;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  }
+  
+  .modal-content h2 {
+    margin-top: 0;
+  }
+  
+  .modal-content p {
+    font-size: 18px;
+    margin: 10px 0;
+  }
+  
+  .close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  
+  .close:hover,
+  .close:focus {
+    color: #000;
   }

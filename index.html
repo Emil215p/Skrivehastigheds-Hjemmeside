@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Side</title>
+    <title>Skrive Hastighedstest</title>
     <link
       href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap"
       rel="stylesheet"
@@ -13,32 +13,26 @@
   <body>
     <div class="container">
       <header>
-        <h1>Skrivehastigheds Test</h1>
+        <h1>Skrive Hastighedstest</h1>
       </header>
-      <div class="mode-selector">
-        <button class="mode-btn active" data-mode="words">Words</button>
-        <button class="mode-btn" data-mode="time">Time</button>
-        <button class="mode-btn" data-mode="quote">Quote</button>
-      </div>
       <main>
         <section id="test-area">
           <div id="text-display"></div>
-          <div id="stats">
-            <div class="stat-box">
-              <h3>WPM</h3>
-              <span id="wpm">0</span>
-            </div>
-            <div class="stat-box">
-              <h3>Præcision</h3>
-              <span id="accuracy">100</span>%
-            </div>
-          </div>
           <button id="reset-btn">Genstart Test</button>
         </section>
       </main>
       <footer>
         <p>&copy; 2025 Virksomhed</p>
       </footer>
+    </div>
+    <div id="progress"><div id="timer-display"></div></div>
+    <div id="result-modal" class="modal">
+      <div class="modal-content">
+        <span id="modal-close" class="close">&times;</span>
+        <h2>Test Resultater</h2>
+        <p id="modal-wpm"></p>
+        <p id="modal-accuracy"></p>
+      </div>
     </div>
     <script src="script.js"></script>
   </body>
