@@ -92,6 +92,7 @@
   button {
     background: var(--accent-color);
     border: none;
+    margin-top: 2vh;
     padding: 0.8rem 1rem;
     font-size: 1rem;
     font-family: var(--font-family);
@@ -99,7 +100,7 @@
     border-radius: 5px;
     cursor: pointer;
     transition: background 0.2s ease, transform 0.1s ease;
-    width: 100%;
+    width: 30%;
   }
   
   button:hover {
@@ -112,9 +113,9 @@
   }
   
   footer {
-    margin-top: 1rem;
+    margin-top: -0.5rem;
     font-size: 0.9rem;
-    color: #b3b3b3;
+    color: #888888c5;
   }  
 
   .mode-selector {
