@@ -27,8 +27,7 @@
   }
   
   .container {
-    width: 90vw;
-    max-width: 50vw;
+    max-width: 70vw;
     padding: 1rem;
     text-align: center;
   }
@@ -184,7 +183,7 @@
   }
   
   .modal-content {
-    background: #131313;
+    background: #171717;
     margin: 10% auto;
     padding: 30px;
     border-radius: 6px;
@@ -192,6 +191,7 @@
     max-width: 400px;
     text-align: center;
     box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    box-shadow: #a48bff88 0px 0px 10px 1px;
   }
   
   .modal-content h2 {
@@ -209,9 +209,10 @@
     font-size: 28px;
     font-weight: bold;
     cursor: pointer;
+    transition: color 0.15s ease;
   }
   
   .close:hover,
   .close:focus {
-    color: #000;
+    color: #757575;
   }

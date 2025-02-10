@@ -9,7 +9,7 @@
   const modalWpm = document.getElementById('modal-wpm');
   const modalAccuracy = document.getElementById('modal-accuracy');
 
-  const TEST_TIME = 30; // seconds
+  const TEST_TIME = 20;
   let timeRemaining = TEST_TIME;
   let testStarted = false;
 
@@ -33,7 +33,7 @@
           .map(word => word.trim())
           .filter(word => word.length > 0);
         const selectedWords = [];
-        const count = 30;
+        const count = 60;
         for (let i = 0; i < count; i++) {
           const randomIndex = Math.floor(Math.random() * words.length);
           selectedWords.push(words[randomIndex]);
@@ -149,7 +149,7 @@
     const correctChars = currentIndex - errorCount;
     const wpm = elapsedMinutes > 0 ? Math.round((correctChars / 5) / elapsedMinutes) : 0;
     const accuracy = totalKeystrokes > 0 ? Math.round(((totalKeystrokes - errorCount) / totalKeystrokes) * 100) : 100;
-    modalWpm.textContent = `Ord i minutet: ${wpm}`;
+    modalWpm.textContent = `Ord i minuttet: ${wpm}`;
     modalAccuracy.textContent = `Præcision: ${accuracy}%`;
     resultModal.style.display = "block";
   }
