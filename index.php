@@ -22,7 +22,7 @@
         </section>
       </main>
       <footer>
-        <p>&copy; 2025 Virksomhed</p>
+        <p>&copy;</p>
       </footer>
     </div>
     <div id="progress"><div id="timer-display"></div></div>
@@ -35,5 +35,13 @@
       </div>
     </div>
     <script src="script.js"></script>
+    <?php
+    $servername = "localhost";
+    $username = "root";
+    $password = "";
+    $dbname = "skptyping";
+
+    $conn = new mysqli($servername, $username, $password, $dbname);
+    ?>
   </body>
 </html>
