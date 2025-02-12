@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Skrive Hastighedstest</title>
+    <title>YouNutty</title>
     <link
       href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap"
       rel="stylesheet"
@@ -32,16 +32,13 @@
         <h2>Test Resultater</h2>
         <p id="modal-wpm"></p>
         <p id="modal-accuracy"></p>
+        <form id="result-form">
+          <input type="text" id="name-input" placeholder="Indtast dit navn" required>
+          <button type="submit">Gem resultat</button>
+        </form>
+        <p id="result-feedback"></p>
       </div>
     </div>
     <script src="script.js"></script>
-    <?php
-    $servername = "localhost";
-    $username = "root";
-    $password = "";
-    $dbname = "skptyping";
-
-    $conn = new mysqli($servername, $username, $password, $dbname);
-    ?>
   </body>
 </html>

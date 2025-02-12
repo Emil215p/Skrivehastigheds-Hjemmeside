@@ -21,7 +21,7 @@
   let errorCount = 0;
 
   function preFetchWords() {
-    return fetch('words.txt')
+    return fetch('get_sentence.php')
       .then(response => {
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
@@ -29,20 +29,12 @@
         return response.text();
       })
       .then(data => {
-        const words = data.split('\n')
-          .map(word => word.trim())
-          .filter(word => word.length > 0);
-        const selectedWords = [];
-        const count = 60;
-        for (let i = 0; i < count; i++) {
-          const randomIndex = Math.floor(Math.random() * words.length);
-          selectedWords.push(words[randomIndex]);
-        }
-        return selectedWords.join(' ');
+        // Return the active sentence (or an error message)
+        return data;
       })
       .catch(error => {
-        console.error('Error fetching words.txt:', error);
-        return 'Error fetching words';
+        console.error('Error fetching sentence:', error);
+        return 'Error fetching sentence';
       });
   }
 
@@ -149,10 +141,44 @@
     const correctChars = currentIndex - errorCount;
     const wpm = elapsedMinutes > 0 ? Math.round((correctChars / 5) / elapsedMinutes) : 0;
     const accuracy = totalKeystrokes > 0 ? Math.round(((totalKeystrokes - errorCount) / totalKeystrokes) * 100) : 100;
+    
     modalWpm.textContent = `Ord i minuttet: ${wpm}`;
     modalAccuracy.textContent = `Præcision: ${accuracy}%`;
     resultModal.style.display = "block";
-  }
+
+    // Add form submission handler
+    const resultForm = document.getElementById('result-form');
+    const feedback = document.getElementById('result-feedback');
+    
+    resultForm.onsubmit = async (e) => {
+      e.preventDefault();
+      const name = document.getElementById('name-input').value;
+      
+      try {
+        const response = await fetch('save_result.php', {
+          method: 'POST',  // Ensure POST is used
+          headers: {
+              'Content-Type': 'application/x-www-form-urlencoded',
+          },
+          body: `name=${encodeURIComponent(name)}&wpm=${wpm}&accuracy=${accuracy}`
+      });
+          
+          const result = await response.text();
+          feedback.textContent = result;
+          feedback.style.color = '#d1d0c5';
+          
+          // Clear form after 2 seconds
+          setTimeout(() => {
+              feedback.textContent = '';
+              resultForm.reset();
+          }, 2000);
+          
+      } catch (error) {
+          feedback.textContent = 'Fejl ved indsendelse: ' + error;
+          feedback.style.color = '#ca4754';
+      }
+  };
+}
 
   modalClose.addEventListener('click', () => {
     resultModal.style.display = "none";
