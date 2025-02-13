@@ -87,7 +87,7 @@ $conn->close();
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>Admin Panel - Manage Sentences</title>
+  <title>Administrations Panel</title>
   <style>
     /* Inspired by index.php's style.css */
     :root {
@@ -116,7 +116,7 @@ $conn->close();
     }
     
     .container {
-      max-width: 70vw;
+      width: 70vw;
       padding: 1rem;
       text-align: center;
       background: var(--background-color);
@@ -134,7 +134,7 @@ $conn->close();
     }
     
     input[type="text"] {
-      width: 80%;
+      width: 40%;
       padding: 0.5rem;
       background: var(--current-word-bg);
       border: 1px solid var(--accent-color);
@@ -163,7 +163,7 @@ $conn->close();
     table {
       width: 100%;
       border-collapse: collapse;
-      margin-top: 1rem;
+      margin-top: 2.5rem;
     }
     
     th, td {
@@ -178,50 +178,59 @@ $conn->close();
     }
 
     #add-button {
-        margin-top: 0.75vh;
+        margin-top: .75vh;
+        width: 15%;
     }
     
-    /* Optional: Style forms inside table cells to display inline */
     td form {
       display: inline;
+    }
+
+    .actions {
+        gap: 0.75rem;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .actions form {
+        margin-bottom: 0;
     }
   </style>
 </head>
 <body>
 <div class="container">
-    <h1>Admin Panel - Manage Sentences</h1>
-    <!-- Form to add a new sentence -->
+    <h1>Administrations Panel</h1>
     <form method="post" action="admin.php">
         <input type="hidden" name="action" value="add">
-        <input type="text" name="sentence" placeholder="Enter custom sentence" required>
-        <button id="add-button" type="submit">Add Sentence</button>
+        <input type="text" name="sentence" placeholder="Indtast sætning" required>
+        <button id="add-button" type="submit">Tilføj sætning</button>
     </form>
     
     <!-- List all sentences with options to enable or delete -->
     <table>
       <tr>
         <th>ID</th>
-        <th>Sentence</th>
+        <th>Sætning</th>
         <th>Status</th>
-        <th>Actions</th>
+        <th>Handling</th>
       </tr>
       <?php foreach ($sentences as $sentence): ?>
       <tr>
         <td><?php echo $sentence['id']; ?></td>
         <td><?php echo htmlspecialchars($sentence['tekst']); ?></td>
-        <td><?php echo $sentence['active'] == 1 ? '<span class="active">Active</span>' : 'Inactive'; ?></td>
-        <td>
+        <td><?php echo $sentence['active'] == 1 ? '<span class="active">Aktiv</span>' : 'Inaktiv'; ?></td>
+        <td class="actions">
             <?php if ($sentence['active'] != 1): ?>
             <form method="post" action="admin.php">
                 <input type="hidden" name="action" value="enable">
                 <input type="hidden" name="id" value="<?php echo $sentence['id']; ?>">
-                <button type="submit">Enable</button>
+                <button type="submit">Aktivere</button>
             </form>
             <?php endif; ?>
-            <form method="post" action="admin.php" onsubmit="return confirm('Are you sure you want to delete this sentence?');">
+            <form method="post" action="admin.php" onsubmit="return confirm('Er du helt sikker på at du vil slette denne sætning?');">
                 <input type="hidden" name="action" value="delete">
                 <input type="hidden" name="id" value="<?php echo $sentence['id']; ?>">
-                <button type="submit">Delete</button>
+                <button type="submit">Slet</button>
             </form>
         </td>
       </tr>

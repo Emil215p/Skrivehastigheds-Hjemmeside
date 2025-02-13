@@ -112,12 +112,6 @@
     transform: translateY(0);
   }
   
-  footer {
-    margin-top: -0.5rem;
-    font-size: 0.9rem;
-    color: #888888c5;
-  }  
-
   .mode-selector {
     display: flex;
     gap: 1rem;

@@ -47,18 +47,19 @@ $result = $conn->query($sql);
       align-items: center;
       min-height: 100vh;
     }
-    .container {
-      width: 70vw;
-      max-width: 1200px;
-      padding: 1rem;
-    }
     header {
       text-align: center;
-      margin-bottom: 1rem;
+      margin-bottom: 1.5rem;
     }
     header h1 {
       font-size: 2.5rem;
-      margin-bottom: 1rem;
+      margin-bottom: 1.5rem;
+    }
+    .container {
+      width: 70vw;
+      max-width: 90vw;
+      padding: .25rem;
+      margin-bottom: 10vh;
     }
     .leaderboard {
       background: var(--background-color);
@@ -68,18 +69,19 @@ $result = $conn->query($sql);
     .leaderboard-header, .leaderboard-row {
       display: grid;
       grid-template-columns: 10% 40% 15% 15% 20%;
-      padding: 0.75rem 1rem;
+      padding: 1.25rem 1rem;
       align-items: center;
     }
     .leaderboard-header {
       background: var(--accent-color);
       font-weight: bold;
       text-transform: uppercase;
-      letter-spacing: 0.05rem;
+      letter-spacing: 0.1rem;
     }
     .leaderboard-row {
       border-bottom: 1px solid #2a2a2a;
       transition: background 0.2s ease;
+      font-size: 1.25vw;
     }
     .leaderboard-row:hover {
       background: #1f1f1f;
@@ -92,7 +94,10 @@ $result = $conn->query($sql);
     }
     .name {
       text-align: left;
-      padding-left: 10px;
+      padding-left: 0.2vw;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      max-width: 50vw;
     }
     .leaderboard-list {
       max-height: 70vh;
@@ -119,7 +124,7 @@ $result = $conn->query($sql);
   <div class="leaderboard">
     <div class="leaderboard-header">
       <div class="col rank">#</div>
-      <div class="col name">Name</div>
+      <div class="col name">Navn</div>
       <div class="col wpm">WPM</div>
       <div class="col precision">Præcision</div>
       <div class="col points">Points</div>

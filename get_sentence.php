@@ -1,5 +1,4 @@
 <?php
-// get_sentence.php
 header('Content-Type: text/plain; charset=utf-8');
 
 // Database connection settings
@@ -14,9 +13,9 @@ if ($conn->connect_error) {
 }
 
 // Get the active sentence; there should be only one
-$result = $conn->query("SELECT text FROM tekster WHERE active = 1 LIMIT 1");
+$result = $conn->query("SELECT tekst FROM tekster WHERE active = 1 LIMIT 1");
 if ($result && $row = $result->fetch_assoc()) {
-    echo $row['text'];
+    echo $row['tekst'];
 } else {
     echo "No active sentence found.";
 }

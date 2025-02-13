@@ -155,7 +155,7 @@
       const name = document.getElementById('name-input').value;
       
       try {
-        const response = await fetch('save_result.php', {
+        const response = await fetch('gem_resultat.php', {
           method: 'POST',  // Ensure POST is used
           headers: {
               'Content-Type': 'application/x-www-form-urlencoded',
