@@ -26,7 +26,6 @@ $result = $conn->query($sql);
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Leaderboard</title>
-  <link rel="stylesheet" href="style.css">
   <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
   <style>
     :root {
@@ -52,7 +51,7 @@ $result = $conn->query($sql);
       margin-bottom: 1.5rem;
     }
     header h1 {
-      font-size: 2.5rem;
+      font-size: 2vw;
       margin-bottom: 1.5rem;
     }
     .container {
@@ -63,8 +62,9 @@ $result = $conn->query($sql);
     }
     .leaderboard {
       background: var(--background-color);
-      border-radius: 8px;
+      border-radius: 12px;
       overflow: hidden;
+      border: 1px solid rgb(70, 70, 70);
     }
     .leaderboard-header, .leaderboard-row {
       display: grid;
@@ -80,8 +80,13 @@ $result = $conn->query($sql);
     }
     .leaderboard-row {
       border-bottom: 1px solid #2a2a2a;
+      border-top: 1px solid #2a2a2a;
       transition: background 0.2s ease;
       font-size: 1.25vw;
+      background: rgb(26, 26, 26);
+    }
+    .leaderboard-row:nth-child(even) {
+      background: rgb(28, 28, 28);
     }
     .leaderboard-row:hover {
       background: #1f1f1f;
@@ -91,6 +96,7 @@ $result = $conn->query($sql);
     }
     .col {
       text-align: center;
+      font-size: 1vw;
     }
     .name {
       text-align: left;
@@ -115,6 +121,7 @@ $result = $conn->query($sql);
       border-radius: 4px;
     }
   </style>
+  <link rel="stylesheet" href="shared.css">
 </head>
 <body>
 <div class="container">
@@ -148,6 +155,17 @@ $result = $conn->query($sql);
     </div>
   </div>
 </div>
+<div class="nav-buttons">
+  <a href="index.php" class="nav-left">Forside</a>
+</div>
+<script>
+      Object.defineProperty(window, 'admin', {
+        get() {
+          window.location.href = 'admin.php';
+          return undefined;
+        }
+      });
+</script>
 <?php
 $conn->close();
 ?>

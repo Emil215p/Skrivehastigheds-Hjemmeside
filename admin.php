@@ -1,18 +1,14 @@
 <?php
-// admin.php
-// Database connection settings
 $servername = "172.16.3.24";
 $username = "root";
 $password = "test";
 $dbname = "skptyping";
 
-// Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-// Process form submissions
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     error_log("Received POST with data: " . print_r($_POST, true));
 
@@ -48,11 +44,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         } elseif ($action === 'enable') {
             $id = intval($_POST['id'] ?? 0);
             if ($id >= 0) {
-                // Disable all sentences first
                 if (!$conn->query("UPDATE tekster SET active = 0")) {
                     error_log("Error disabling sentences: " . $conn->error);
                 }
-                // Enable the selected sentence
                 $stmt = $conn->prepare("UPDATE tekster SET active = 1 WHERE id = ?");
                 $stmt->bind_param("i", $id);
                 if ($stmt->execute()) {
@@ -72,7 +66,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     exit;
 }
 
-// Fetch all sentences
 $result = $conn->query("SELECT * FROM tekster ORDER BY id DESC");
 $sentences = [];
 if ($result && $result->num_rows > 0) {
@@ -87,9 +80,8 @@ $conn->close();
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>Administrations Panel</title>
+  <title>Administrationspanel</title>
   <style>
-    /* Inspired by index.php's style.css */
     :root {
       --background-color: #1c1c1c;
       --container-bg: #121212;
@@ -116,21 +108,23 @@ $conn->close();
     }
     
     .container {
-      width: 70vw;
-      padding: 1rem;
-      text-align: center;
+      max-width: 70vw;
+      padding: 2rem;
       background: var(--background-color);
-      border-radius: 8px;
+      border-radius: 20px;
       box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+      text-align: center;
+      border: 1px solid var(--current-word-bg);
+      box-shadow:rgba(155, 128, 253, 0.25) 0 0 100px -30px;
     }
     
     h1 {
-      font-size: 2.5rem;
-      margin-bottom: 1rem;
+      font-size: 2vw;
+      margin-bottom: 1.5rem;
     }
     
     form {
-      margin-bottom: 1rem;
+      margin-bottom: 1.5rem;
     }
     
     input[type="text"] {
@@ -138,75 +132,107 @@ $conn->close();
       padding: 0.5rem;
       background: var(--current-word-bg);
       border: 1px solid var(--accent-color);
-      border-radius: 4px;
+      border-radius: 6px;
+      font-size: 0.7vw;
       color: var(--text-color);
+      height: 3rem;
       font-family: var(--font-family);
+      margin-right: 0.5rem;
+      transition: box-shadow 0.2s ease;
+    }
+
+    input[type="text"]:focus {
+      outline: none;
+      box-shadow: 0 0 5px 1px var(--accent-color);
+    }
+
+    table td {
+      vertical-align: middle;
+    }
+
+    #submit {
+      height: 3rem;
+      border: 1px solid #7b5fe4;
+      transition: background 0.3s ease, transform 0.2s ease, border-color 0.2s ease;
+    }
+
+    #submit:hover {
+      background-color: #7b5fe4;
+      border-color: #fff;
+      transform: translateY(-2px);
+    }
+
+    #aktiver {
+      background-color:rgb(62, 233, 76);
     }
     
+    #slet {
+      background-color:rgb(233, 62, 62);
+    }
+
     button {
       background: var(--accent-color);
-      border: none;
+      border: 1px solid rgba(255, 255, 255, 0);
       padding: 0.8rem 1rem;
-      font-size: 1rem;
+      font-size: 0.85vw;
       color: var(--text-color);
       border-radius: 5px;
       cursor: pointer;
-      transition: background 0.2s ease, transform 0.1s ease;
-      margin: 0 0.3rem;
+      transition: background 0.3s ease, transform 0.2s ease, border 0.2s ease;
+      margin: 0.3rem 0;
     }
     
     button:hover {
       background: #5a6fb2;
       transform: translateY(-2px);
+      border-color: #fff;
     }
     
     table {
       width: 100%;
       border-collapse: collapse;
-      margin-top: 2.5rem;
+      margin-top: 4.5vh;
+      font-size: 0.85vw;
     }
     
     th, td {
       padding: 0.8rem;
       border-bottom: 1px solid var(--current-word-bg);
       text-align: left;
+      vertical-align: top;
+    }
+
+    .sentence-text {
+      max-width: 40vw;
+      word-break: break-word;
+      white-space: pre-wrap;
     }
     
     .active {
-      color: green;
+      color: rgb(62, 233, 76) ;
       font-weight: bold;
     }
-
-    #add-button {
-        margin-top: .75vh;
-        width: 15%;
+    
+    .actions {
+      gap: 0.5rem;
     }
     
-    td form {
-      display: inline;
-    }
-
-    .actions {
-        gap: 0.75rem;
-        display: flex;
-        flex-direction: column;
-    }
-
     .actions form {
-        margin-bottom: 0;
+      margin: 0;
+      display: inline-block;
     }
   </style>
+  <link rel="stylesheet" href="shared.css">
 </head>
 <body>
 <div class="container">
-    <h1>Administrations Panel</h1>
+    <h1>Administrationspanel</h1>
     <form method="post" action="admin.php">
         <input type="hidden" name="action" value="add">
-        <input type="text" name="sentence" placeholder="Indtast sætning" required>
-        <button id="add-button" type="submit">Tilføj sætning</button>
+        <input type="text" name="sentence" placeholder="Indtast sætning" required oninvalid="this.setCustomValidity('Skriv en sætning først.')">
+        <button type="submit" id="submit">Tilføj sætning</button>
     </form>
     
-    <!-- List all sentences with options to enable or delete -->
     <table>
       <tr>
         <th>ID</th>
@@ -217,25 +243,29 @@ $conn->close();
       <?php foreach ($sentences as $sentence): ?>
       <tr>
         <td><?php echo $sentence['id']; ?></td>
-        <td><?php echo htmlspecialchars($sentence['tekst']); ?></td>
+        <td class="sentence-text"><?php echo htmlspecialchars($sentence['tekst']); ?></td>
         <td><?php echo $sentence['active'] == 1 ? '<span class="active">Aktiv</span>' : 'Inaktiv'; ?></td>
         <td class="actions">
             <?php if ($sentence['active'] != 1): ?>
             <form method="post" action="admin.php">
                 <input type="hidden" name="action" value="enable">
                 <input type="hidden" name="id" value="<?php echo $sentence['id']; ?>">
-                <button type="submit">Aktivere</button>
+                <button type="submit" id="aktiver">Aktiver</button>
             </form>
             <?php endif; ?>
             <form method="post" action="admin.php" onsubmit="return confirm('Er du helt sikker på at du vil slette denne sætning?');">
                 <input type="hidden" name="action" value="delete">
                 <input type="hidden" name="id" value="<?php echo $sentence['id']; ?>">
-                <button type="submit">Slet</button>
+                <button type="submit" id="slet">Slet</button>
             </form>
         </td>
       </tr>
       <?php endforeach; ?>
     </table>
+</div>
+<div class="nav-buttons">
+  <a href="leaderboard.php" class="nav-left">Leaderboard</a>
+  <a href="index.php" class="nav-right">Forside</a>
 </div>
 </body>
 </html>

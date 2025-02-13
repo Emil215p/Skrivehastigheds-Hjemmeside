@@ -4,11 +4,9 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Skrive Hastighedstest</title>
-    <link
-      href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap"
-      rel="stylesheet"
-    />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet"/>
     <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="shared.css">
   </head>
   <body>
     <div class="container">
@@ -36,6 +34,17 @@
         <p id="result-feedback"></p>
       </div>
     </div>
+    <div class="nav-buttons">
+      <a href="leaderboard.php" class="nav-right">Leaderboard</a>
+    </div>
     <script src="script.js"></script>
+    <script>
+      Object.defineProperty(window, 'admin', {
+        get() {
+          window.location.href = 'admin.php';
+          return undefined;
+        }
+      });
+    </script>
   </body>
 </html>
