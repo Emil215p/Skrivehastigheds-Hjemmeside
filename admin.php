@@ -83,7 +83,7 @@ $conn->close();
   <title>Administrationspanel</title>
   <style>
     :root {
-      --background-color: #1c1c1c;
+      --background-color:rgb(20, 20, 20);
       --container-bg: #121212;
       --current-word-bg: #2a2a2a;
       --text-color: #f0f0f0;
@@ -229,7 +229,7 @@ $conn->close();
     <h1>Administrationspanel</h1>
     <form method="post" action="admin.php">
         <input type="hidden" name="action" value="add">
-        <input type="text" name="sentence" placeholder="Indtast sætning" required oninvalid="this.setCustomValidity('Skriv en sætning først.')">
+        <input type="text" name="sentence" placeholder="Indtast en sætning" title="Indtast en sætning" required oninvalid="this.setCustomValidity('Indtast en sætning')">
         <button type="submit" id="submit">Tilføj sætning</button>
     </form>
     

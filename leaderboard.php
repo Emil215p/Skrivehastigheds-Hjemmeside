@@ -158,14 +158,7 @@ $result = $conn->query($sql);
 <div class="nav-buttons">
   <a href="index.php" class="nav-left">Forside</a>
 </div>
-<script>
-      Object.defineProperty(window, 'admin', {
-        get() {
-          window.location.href = 'admin.php';
-          return undefined;
-        }
-      });
-</script>
+<script src="shared.js"></script>
 <?php
 $conn->close();
 ?>

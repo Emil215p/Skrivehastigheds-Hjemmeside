@@ -16,7 +16,7 @@
       <main>
         <section id="test-area">
           <div id="text-display"></div>
-          <button id="reset-btn">Genstart Test</button>
+          <button id="reset-btn" type="button">Genstart Test</button>
         </section>
       </main>
     </div>
@@ -35,16 +35,9 @@
       </div>
     </div>
     <div class="nav-buttons">
-      <a href="leaderboard.php" class="nav-right">Leaderboard</a>
+      <a href="leaderboard.php" class="nav-left">Leaderboard</a>
     </div>
+    <script src="shared.js"></script>
     <script src="script.js"></script>
-    <script>
-      Object.defineProperty(window, 'admin', {
-        get() {
-          window.location.href = 'admin.php';
-          return undefined;
-        }
-      });
-    </script>
   </body>
 </html>

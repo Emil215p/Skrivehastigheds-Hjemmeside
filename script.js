@@ -185,6 +185,7 @@
   });
 
   async function resetTest() {
+    resetBtn.blur();
     clearInterval(timerInterval);
     updateProgress(100);
     resultModal.style.display = "none";
