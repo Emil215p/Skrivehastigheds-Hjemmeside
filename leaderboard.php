@@ -170,7 +170,10 @@ $result = $conn->query($sql);
       display: block;
       font-size: 2vw;
       color: var(--accent-color);
-      filter: drop-shadow(0 0.5vh 0.05vw rgba(0, 0, 0, 0.79)) drop-shadow(0 0.5vh 0.3vw rgba(0, 0, 0, 0.56));
+      text-shadow: 0 0.375vh black;
+    }
+    #accuracy {
+      color: #2ecc71;
     }
     #errors {
       color:rgb(226, 20, 20);
@@ -199,7 +202,6 @@ $result = $conn->query($sql);
     <div class="leaderboard-list">
       <?php if ($result && $result->num_rows > 0): ?>
         <?php $rank = 1; while($row = $result->fetch_assoc()): ?>
-          <!-- Each row carries a unique record id -->
           <div class="leaderboard-row" data-id="<?php echo htmlspecialchars($row['id']); ?>">
             <div class="col rank"><?php echo $rank++; ?></div>
             <div class="col name"><?php echo htmlspecialchars($row['navn']); ?></div>
@@ -251,7 +253,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   document.querySelectorAll('.leaderboard-row').forEach(row => {
     row.addEventListener('click', async () => {
-      // Retrieve the unique record id
       const id = row.getAttribute('data-id');
       const response = await fetch(`get_user_stats.php?id=${encodeURIComponent(id)}`);
       const data = await response.json();
@@ -271,7 +272,6 @@ document.addEventListener('DOMContentLoaded', () => {
       alert(data.error);
       return;
     }
-    // Populate the modal with the record's details
     document.getElementById('userName').textContent = data.navn;
     document.getElementById('wpm').textContent = data.wpm;
     document.getElementById('accuracy').textContent = data.præcision + '%';
