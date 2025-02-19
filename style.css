@@ -4,7 +4,7 @@
     --current-word-bg: #2a2a2a;
     --text-color: #f0f0f0;
     --text-display-color: #777777;
-    --accent-color: #7b5fe4;
+    --accent-color: #f97316;
     --correct-color: #d1d0c5;
     --incorrect-color: #ca4754;;
     --font-family: 'Roboto Mono', monospace;
@@ -34,12 +34,11 @@
   
   header h1 {
     font-size: 2vw;
-    margin-bottom: 1rem;
+    margin-bottom: 3vh;
   }
   
   main {
     background: transparent;
-    padding: 1rem;
   }
   
   #text-display {
@@ -48,7 +47,7 @@
     white-space: normal;  
     overflow-wrap: break-word;
     text-align: center;
-    margin-bottom: 1.5rem;
+    margin-bottom: 2vh;
     color: var(--text-display-color);
   }
   
@@ -92,21 +91,23 @@
   button {
     background: var(--accent-color);
     margin-top: 2vh;
-    padding: 0.8rem 1rem;
+    padding: 1.5vh 1vw;
     font-size: 1vw;
     font-family: var(--font-family);
     color: var(--text-color);
-    border-radius: 5px;
+    border-radius: 0.5vw;
     cursor: pointer;
-    border: 1px solid #7b5fe4;
-    transition: background 0.3s ease, transform 0.3s ease, border-color 0.2s ease;
+    border: 1px solid #f97316;
+    box-shadow: 0 0 2vw -.75vw #f97316;
+    transition: background 0.3s ease, transform 0.3s ease, border-color 0.2s ease, color 0.2s ease;
     width: 30%;
   }
   
   button:hover {
-    background-color: #7b5fe4;
-    border-color: #fff;
-    transform: translateY(-2px);
+    color: #000;
+    background-color: #fff;
+    border-color: #000;
+    transform: translateY(-.3vh);
   }
   
   button:active {
@@ -130,15 +131,6 @@
     border-color: var(--accent-color);
   }
 
-  #progress {
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: 3px;
-    background: var(--accent-color);
-    transition: width 0.1s ease;
-  }
-  
   .word {
     margin-right: 0.5em;
   }
@@ -152,7 +144,7 @@
     text-align: center;
     font-size: 1vw;
     color: #e4e4e4;
-    margin: 10px 0;
+    margin: 1vh 0;
   }
   
   #progress {
@@ -160,10 +152,11 @@
     top: 0;
     left: 0;
     width: 100%; 
-    height: 3px;
-    background: #7b5fe4; 
+    height: 0.5vh;
+    background: #f97316; 
     transition: width 0.1s linear;
     z-index: 1000;
+    box-shadow: 0 0.3vh 3vh 0.1vh #f97316;
   }
   
   .modal {
@@ -187,7 +180,7 @@
     max-width: 400px;
     text-align: center;
     box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-    box-shadow: #a48bff88 0px 0px 10px 1px;
+    box-shadow: #f974168a 0px 0px 10px 1px;
   }
   
   .modal-content h2 {

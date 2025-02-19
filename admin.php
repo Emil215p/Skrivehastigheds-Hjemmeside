@@ -86,8 +86,9 @@ $conn->close();
       --background-color:rgb(20, 20, 20);
       --container-bg: #121212;
       --current-word-bg: #2a2a2a;
+      --outline-color:rgb(65, 65, 65);
       --text-color: #f0f0f0;
-      --accent-color: #7b5fe4;
+      --accent-color: #f97316;
       --font-family: 'Roboto Mono', monospace;
     }
     
@@ -99,51 +100,65 @@ $conn->close();
       margin: 0;
       padding: 0;
       min-height: 100vh;
-      background: var(--container-bg);
+      background: rgb(10, 10, 10);
       color: var(--text-color);
       font-family: var(--font-family);
       display: flex;
       align-items: center;
       justify-content: center;
     }
+
+    html::-webkit-scrollbar {
+      display: none;
+    }
+
+    html {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
     
     .container {
-      max-width: 70vw;
-      padding: 2rem;
+      width: 60vw;
+      padding: 2vw;
       background: var(--background-color);
-      border-radius: 20px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+      margin-top: 4vh;
+      margin-bottom: 4vh;
+      border-radius: 0.6vw;
+      box-shadow: 0 2vw 8vw rgba(0,0,0,0.3);
       text-align: center;
-      border: 1px solid var(--current-word-bg);
-      box-shadow:rgba(155, 128, 253, 0.25) 0 0 100px -30px;
+      border: 0.1vw solid var(--outline-color);
+      box-shadow:rgba(249, 116, 22, 0.4) 0 0 6vw -1.5vw;
     }
     
     h1 {
       font-size: 2vw;
-      margin-bottom: 1.5rem;
+      margin-bottom: 1.5vh;
     }
     
     form {
-      margin-bottom: 1.5rem;
+      margin-bottom: 1.5vh;
+      display: flex;
+      gap: 1vw;
+      justify-content: center;
     }
     
     input[type="text"] {
-      width: 40%;
-      padding: 0.5rem;
+      width: 16vw;
+      padding: 0.5vw;
       background: var(--current-word-bg);
-      border: 1px solid var(--accent-color);
-      border-radius: 6px;
+      border: 0.1vw solid var(--accent-color);
+      border-radius: 0.3vw;
       font-size: 0.7vw;
       color: var(--text-color);
-      height: 3rem;
+      height: 5vh;
       font-family: var(--font-family);
-      margin-right: 0.5rem;
-      transition: box-shadow 0.2s ease;
+      margin-right: 0.5vw;
+      transition: box-shadow 0.3s ease;
     }
 
     input[type="text"]:focus {
       outline: none;
-      box-shadow: 0 0 5px 1px var(--accent-color);
+      box-shadow: 0 0 .5vw 0.01vw var(--accent-color);
     }
 
     table td {
@@ -151,15 +166,18 @@ $conn->close();
     }
 
     #submit {
-      height: 3rem;
-      border: 1px solid #7b5fe4;
-      transition: background 0.3s ease, transform 0.2s ease, border-color 0.2s ease;
+      height: 5vh;
+      margin: 0;
+      border: 0.1vw solid #f97316;
+      box-shadow: 0 0 2vw -.75vw #f97316;
+      transition: background 0.3s ease, transform 0.2s ease, border-color 0.2s ease, color 0.2s ease;
     }
 
     #submit:hover {
-      background-color: #7b5fe4;
-      border-color: #fff;
-      transform: translateY(-2px);
+      color: #000;
+      background-color: #fff;
+      border-color: #000;
+      transform: translateY(-0.3vh);
     }
 
     #aktiver {
@@ -172,19 +190,29 @@ $conn->close();
 
     button {
       background: var(--accent-color);
-      border: 1px solid rgba(255, 255, 255, 0);
-      padding: 0.8rem 1rem;
+      border: 0.1vw solid rgba(255, 255, 255, 0);
+      padding: 0.8vh 1vw;
       font-size: 0.85vw;
       color: var(--text-color);
-      border-radius: 5px;
+      border-radius: .3vw;
       cursor: pointer;
       transition: background 0.3s ease, transform 0.2s ease, border 0.2s ease;
-      margin: 0.3rem 0;
+      margin: 0.3vh 0;
+    }
+
+    #aktiver-grå {
+      background: rgba(62, 233, 76, 0.2);
+      color: rgba(255, 255, 255, 0.5);
+    }
+
+    #aktiver-grå:hover {
+      border-color: rgba(255, 255, 255, 0);
+      cursor: not-allowed;
     }
     
     button:hover {
       background: #5a6fb2;
-      transform: translateY(-2px);
+      transform: translateY(-0.2vh);
       border-color: #fff;
     }
     
@@ -196,8 +224,7 @@ $conn->close();
     }
     
     th, td {
-      padding: 0.8rem;
-      border-bottom: 1px solid var(--current-word-bg);
+      padding: 0.8vw;
       text-align: left;
       vertical-align: top;
     }
@@ -214,12 +241,16 @@ $conn->close();
     }
     
     .actions {
-      gap: 0.5rem;
+      gap: 0.5vh;
     }
     
     .actions form {
       margin: 0;
       display: inline-block;
+    }
+
+    .sentence-row {
+      border-top: 0.1vw solid rgb(53, 53, 53);
     }
   </style>
   <link rel="stylesheet" href="shared.css">
@@ -229,7 +260,7 @@ $conn->close();
     <h1>Administrationspanel</h1>
     <form method="post" action="admin.php">
         <input type="hidden" name="action" value="add">
-        <input type="text" name="sentence" placeholder="Indtast en sætning" title="Indtast en sætning" required oninvalid="this.setCustomValidity('Indtast en sætning')">
+        <input type="text" name="sentence" maxlength="500" placeholder="Indtast en sætning" title="Indtast en sætning" required oninvalid="this.setCustomValidity('Indtast en sætning')">
         <button type="submit" id="submit">Tilføj sætning</button>
     </form>
     
@@ -241,7 +272,7 @@ $conn->close();
         <th>Handling</th>
       </tr>
       <?php foreach ($sentences as $sentence): ?>
-      <tr>
+      <tr class="sentence-row">
         <td><?php echo $sentence['id']; ?></td>
         <td class="sentence-text"><?php echo htmlspecialchars($sentence['tekst']); ?></td>
         <td><?php echo $sentence['active'] == 1 ? '<span class="active">Aktiv</span>' : 'Inaktiv'; ?></td>
@@ -251,6 +282,11 @@ $conn->close();
                 <input type="hidden" name="action" value="enable">
                 <input type="hidden" name="id" value="<?php echo $sentence['id']; ?>">
                 <button type="submit" id="aktiver">Aktiver</button>
+            </form>
+            <?php endif; ?>
+            <?php if ($sentence['active'] >= 1): ?>
+            <form>
+                <button type="submit" id="aktiver-grå" disabled>Aktiver</button>
             </form>
             <?php endif; ?>
             <form method="post" action="admin.php" onsubmit="return confirm('Er du helt sikker på at du vil slette denne sætning?');">

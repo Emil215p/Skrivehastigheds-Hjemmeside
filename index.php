@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="shared.css">
   </head>
   <body>
-    <div class="container">
+  <div class="container">
       <header>
         <h1>Skrive Hastighedstest</h1>
       </header>
@@ -37,7 +37,6 @@
     <div class="nav-buttons">
       <a href="leaderboard.php" class="nav-left">Leaderboard</a>
     </div>
-    <script src="shared.js"></script>
     <script src="script.js"></script>
   </body>
 </html>
