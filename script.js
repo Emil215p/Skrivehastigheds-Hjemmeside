@@ -12,6 +12,8 @@
   const TEST_TIME = 20;
   let timeRemaining = TEST_TIME;
   let testStarted = false;
+  let displayingResult = false;
+  let systemSaving = false;
 
   let quoteCharacters = [];
   let currentIndex = 0;
@@ -71,6 +73,15 @@
     if (index < spans.length) {
       spans[index].classList.add("current");
     }
+
+    if (spans.length <= index) {
+      testStarted = false;
+      displayResult();
+      clearInterval(timerInterval);
+      testStarted = false;
+      updateTimerDisplay(TEST_TIME);
+      updateProgress(100);
+    }
   }
 
   function startTimer() {
@@ -103,7 +114,7 @@
   }
 
   document.addEventListener("keydown", (event) => {
-    if (timeRemaining <= 0) return;
+    if (timeRemaining <= 0 || displayingResult == true) return;
 
     // Track raw characters (every keypress except special keys)
     if (event.key.length === 1) {
@@ -142,17 +153,25 @@
     markCurrentChar(currentIndex);
   });
 
-  document.getElementById('result-form').addEventListener('submit', async (e) => {
+  function displayResult() {
+    displayingResult = true
+    const elapsedMinutes = TEST_TIME / 60;
+    const correctChars = currentIndex - errorCount;
+    const wpm = elapsedMinutes > 0 ? Math.round((correctChars / 5) / elapsedMinutes) : 0;
+    const accuracy = totalKeystrokes > 0 ? Math.round(((totalKeystrokes - errorCount) / totalKeystrokes) * 100) : 100;
+
+    document.getElementById('result-form').addEventListener('submit', async (e) => {
     e.preventDefault();
     const name = document.getElementById('name-input').value;
     const formData = new FormData();
     formData.append('name', name);
-    formData.append('wpm', wpm);  // Assuming these variables are defined in your scope
+    formData.append('wpm', wpm);
     formData.append('accuracy', accuracy);
-    formData.append('raw', raw);
-    formData.append('errors', errors);
+    // formData.append('raw', raw);
+    // formData.append('errors', errors);
 
     try {
+        systemSaving = true;
         const response = await fetch('gem_resultat.php', {
             method: 'POST',
             body: formData
@@ -161,27 +180,23 @@
         const feedback = document.getElementById('result-feedback');
         feedback.textContent = result;
 
-        if (result === "Resultat gemt!") {
-            // Disable the form and button after successful submission
+        if (!response.ok) {
+          systemSaving = false;
+        }
+
+        if (result.ok) {
             document.getElementById('name-input').disabled = true;
             document.querySelector('#result-form button').disabled = true;
             
-            // Close the modal after a short delay
             setTimeout(() => {
                 document.getElementById('result-modal').style.display = 'none';
+              systemSaving = false;
             }, 1500);
         }
     } catch (error) {
         document.getElementById('result-feedback').textContent = 'Der opstod en fejl ved gem af resultatet.';
     }
   });
-
-
-  function displayResult() {
-    const elapsedMinutes = TEST_TIME / 60;
-    const correctChars = currentIndex - errorCount;
-    const wpm = elapsedMinutes > 0 ? Math.round((correctChars / 5) / elapsedMinutes) : 0;
-    const accuracy = totalKeystrokes > 0 ? Math.round(((totalKeystrokes - errorCount) / totalKeystrokes) * 100) : 100;
 
     modalWpm.textContent = `Ord i minuttet: ${wpm}`;
     modalAccuracy.textContent = `Præcision: ${accuracy}%`;
@@ -220,6 +235,7 @@
 
   modalClose.addEventListener("click", () => {
     resultModal.style.display = "none";
+    displayingResult = false;
   });
 
   async function resetTest() {

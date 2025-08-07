@@ -6,15 +6,15 @@
     --text-display-color: #777777;
     --accent-color: #f97316;
     --correct-color: #d1d0c5;
-    --incorrect-color: #ca4754;;
+    --incorrect-color: #ca4754;
     --font-family: 'Roboto Mono', monospace;
-  }
-  
-  * {
+}
+
+* {
     box-sizing: border-box;
-  }
-  
-  body {
+}
+
+body {
     margin: 0;
     padding: 0;
     min-height: 100vh;
@@ -24,71 +24,72 @@
     display: flex;
     align-items: center;
     justify-content: center;
-  }
-  
-  .container {
+}
+
+.container {
     max-width: 70vw;
     padding: 1rem;
     text-align: center;
-  }
-  
-  header h1 {
+}
+
+header h1 {
     font-size: 2vw;
     margin-bottom: 3vh;
-  }
-  
-  main {
+}
+
+main {
     background: transparent;
-  }
-  
-  #text-display {
+}
+
+#text-display {
     font-size: 1.3vw;
     line-height: 1.5;
-    white-space: normal;  
+    min-height: 1.8em;
+    white-space: normal;
     overflow-wrap: break-word;
     text-align: center;
     margin-bottom: 2vh;
     color: var(--text-display-color);
-  }
-  
-  #text-display span {
+}
+
+#text-display span {
     transition: color 0.15s ease, background-color 0.15s ease;
     padding: 0 0.03em;
-  }
-  
-  .correct {
+}
+
+.correct {
     color: var(--correct-color);
-  }
-  
-  .incorrect {
+}
+
+.incorrect {
     color: var(--incorrect-color);
-  }
-  
-  .current {
+}
+
+.current {
     background-color: rgba(255, 255, 255, 0.1);
     border-bottom: 2px solid var(--text-color);
-  }
-  
-  #stats {
+}
+
+#stats {
     display: flex;
     justify-content: center;
     gap: 1rem;
     margin-bottom: 1.5rem;
-  }
-  
-  .stat-box {
+}
+
+.stat-box {
     background: rgba(255, 255, 255, 0.05);
     padding: 0.8rem 1rem;
     border-radius: 5px;
-  }
-  
-  .stat-box h3 {
+}
+
+.stat-box h3 {
     margin: 0 0 0.3rem;
     font-size: 1rem;
     color: #b3b3b3;
-  }
-  
-  button {
+}
+
+button {
     background: var(--accent-color);
     margin-top: 2vh;
     padding: 1.5vh 1vw;
@@ -101,65 +102,66 @@
     box-shadow: 0 0 2vw -.75vw #f97316;
     transition: background 0.3s ease, transform 0.3s ease, border-color 0.2s ease, color 0.2s ease;
     width: 30%;
-  }
-  
-  button:hover {
+    max-width: 230px;
+}
+
+button:hover {
     color: #000;
     background-color: #fff;
     border-color: #000;
     transform: translateY(-.3vh);
-  }
-  
-  button:active {
+}
+
+button:active {
     transform: translateY(0);
-  }
-  
-  .mode-selector {
+}
+
+.mode-selector {
     display: flex;
     gap: 1rem;
     justify-content: center;
     margin: 1rem 0;
-  }
-  
-  .mode-btn {
+}
+
+.mode-btn {
     background: none;
     border: 1px solid var(--text-display-color);
     padding: 0.5rem 1rem;
-  }
-  
-  .mode-btn.active {
-    border-color: var(--accent-color);
-  }
+}
 
-  .word {
+.mode-btn.active {
+    border-color: var(--accent-color);
+}
+
+.word {
     margin-right: 0.5em;
-  }
-  
-  .current-word {
+}
+
+.current-word {
     background: var(--current-word-bg);
     border-radius: 3px;
-  }
+}
 
 #timer-display {
     text-align: center;
     font-size: 1vw;
     color: #e4e4e4;
     margin: 1vh 0;
-  }
-  
-  #progress {
+}
+
+#progress {
     position: fixed;
     top: 0;
     left: 0;
-    width: 100%; 
+    width: 100%;
     height: 0.5vh;
-    background: #f97316; 
+    background: #f97316;
     transition: width 0.1s linear;
     z-index: 1000;
     box-shadow: 0 0.3vh 3vh 0.1vh #f97316;
-  }
-  
-  .modal {
+}
+
+.modal {
     display: none;
     position: fixed;
     z-index: 2000;
@@ -169,9 +171,9 @@
     height: 100%;
     overflow: auto;
     background: rgba(0, 0, 0, 0.6);
-  }
-  
-  .modal-content {
+}
+
+.modal-content {
     background: #171717;
     margin: 10% auto;
     padding: 30px;
@@ -179,34 +181,34 @@
     width: 80%;
     max-width: 400px;
     text-align: center;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
     box-shadow: #f974168a 0px 0px 10px 1px;
-  }
-  
-  .modal-content h2 {
+}
+
+.modal-content h2 {
     margin-top: 0;
-  }
-  
-  .modal-content p {
+}
+
+.modal-content p {
     font-size: 18px;
     margin: 10px 0;
-  }
-  
-  .close {
+}
+
+.close {
     color: #aaa;
     float: right;
     font-size: 28px;
     font-weight: bold;
     cursor: pointer;
     transition: color 0.15s ease;
-  }
-  
-  .close:hover,
-  .close:focus {
-    color: #757575;
-  }
+}
 
-  #result-form {
+.close:hover,
+.close:focus {
+    color: #757575;
+}
+
+#result-form {
     margin-top: 1.5rem;
     display: flex;
     flex-direction: column;
@@ -230,4 +232,8 @@
 #result-feedback {
     margin-top: 0.5rem;
     font-size: 0.9rem;
+}
+
+#test-area {
+    min-width: 800px;
 }

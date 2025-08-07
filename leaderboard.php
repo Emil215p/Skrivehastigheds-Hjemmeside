@@ -13,7 +13,8 @@ if ($conn->connect_error) {
 // Added 'id' in case you want to use it later for unique identification
 $sql = "SELECT id, navn, raw, errors, wpm, præcision, (wpm * præcision) AS points 
         FROM resultater 
-        ORDER BY points DESC";
+        ORDER BY points DESC
+        LIMIT 10";
 $result = $conn->query($sql);
 ?>
 <!DOCTYPE html>
@@ -67,10 +68,10 @@ $result = $conn->query($sql);
     .leaderboard-header, .leaderboard-row {
       display: grid;
       grid-template-columns: 10% 40% 15% 15% 20%;
-      padding: 2.25vh 1.5vw;
       align-items: center;
     }
     .leaderboard-header {
+      padding: 2.25vh 1.5vw;
       background: var(--accent-color);
       font-weight: bold;
       text-transform: uppercase;
@@ -82,6 +83,7 @@ $result = $conn->query($sql);
       transition: background 0.2s ease;
       font-size: 1.25vw;
       cursor: pointer;
+      height: 45px;
       background: rgb(22, 22, 22);
     }
     .leaderboard-row:nth-child(even) {
