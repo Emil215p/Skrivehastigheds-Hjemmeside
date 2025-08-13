@@ -9,16 +9,7 @@ if (isset($_SERVER['REQUEST_METHOD'])) {
 
 error_log("POST Data: " . print_r($_POST, true));
 
-$servername = "172.16.3.24";
-$username = "root";
-$password = "test";
-$dbname = "skptyping";
-
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
+require 'db/db_conn.php';
 
 if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] == "POST") {
     $name = $_POST['name'] ?? '';
@@ -45,4 +36,3 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] == "POST") {
 }
 
 $conn->close();
-?>

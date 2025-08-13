@@ -1,0 +1,20 @@
+-- db setup
+
+CREATE DATABASE IF NOT EXISTS skptyping DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+USE skptyping;
+
+CREATE TABLE IF NOT EXISTS resultater (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    navn VARCHAR(100) NOT NULL,
+    wpm INT NOT NULL,
+    præcision INT NOT NULL,
+    raw INT NOT NULL,
+    errors INT NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS tekster (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    tekst TEXT NOT NULL,
+    active TINYINT(1) DEFAULT 0
+);
