@@ -19,9 +19,9 @@
   let currentIndex = 0;
   let startTime = null;
   let timerInterval = null;
-  let totalKeystrokes = 0;
-  let errorCount = 0;
-  let rawCharacters = 0;
+  let totalKeystrokes = 0; // Total characters typed (including deleted)
+  let errorCount = 0; // Total errors made
+  let rawCharacters = 0; // Total characters typed (including deleted and incorrect)
 
   function preFetchWords() {
     return fetch("../code/get_sentence.php")
@@ -31,7 +31,9 @@
         }
         return response.text();
       })
-      .then((data) => data)
+      .then((data) => {
+        return data;
+      })
       .catch((error) => {
         console.error("Error fetching sentence:", error);
         return "Error fetching sentence";
@@ -76,6 +78,7 @@
       testStarted = false;
       displayResult();
       clearInterval(timerInterval);
+      testStarted = false;
       updateTimerDisplay(TEST_TIME);
       updateProgress(100);
     }
@@ -111,24 +114,25 @@
   }
 
   document.addEventListener("keydown", (event) => {
-    if (timeRemaining <= 0 || displayingResult) return;
+    if (timeRemaining <= 0 || displayingResult == true) return;
 
+    // Track raw characters (every keypress except special keys)
     if (event.key.length === 1) {
       rawCharacters++;
     }
 
-    if (event.key === "Backspace") {
-      if (currentIndex > 0) {
-        currentIndex--;
-        const span = textDisplay.children[currentIndex];
-        span.classList.remove("correct", "incorrect");
-        markCurrentChar(currentIndex);
-        totalKeystrokes = Math.max(totalKeystrokes - 1, 0);
+    if (event.key.length !== 1) {
+      if (event.key === "Backspace") {
+        if (currentIndex > 0) {
+          currentIndex--;
+          const span = textDisplay.children[currentIndex];
+          span.classList.remove("correct", "incorrect");
+          markCurrentChar(currentIndex);
+          totalKeystrokes = Math.max(totalKeystrokes - 1, 0);
+        }
       }
       return;
     }
-
-    if (event.key.length !== 1) return;
 
     if (!startTime) {
       startTimer();
@@ -150,11 +154,50 @@
   });
 
   function displayResult() {
-    displayingResult = true;
+    displayingResult = true
     const elapsedMinutes = TEST_TIME / 60;
     const correctChars = currentIndex - errorCount;
     const wpm = elapsedMinutes > 0 ? Math.round((correctChars / 5) / elapsedMinutes) : 0;
     const accuracy = totalKeystrokes > 0 ? Math.round(((totalKeystrokes - errorCount) / totalKeystrokes) * 100) : 100;
+
+    document.getElementById('result-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const name = document.getElementById('name-input').value;
+    const formData = new FormData();
+    formData.append('name', name);
+    formData.append('wpm', wpm);
+    formData.append('accuracy', accuracy);
+    // formData.append('raw', raw);
+    // formData.append('errors', errors);
+
+    try {
+        return; // bandaid fix, will probably be replaced.
+        systemSaving = true;
+        const response = await fetch('../code/save_result.php', {
+            method: 'POST',
+            body: formData
+        });
+        const result = await response.text();
+        const feedback = document.getElementById('result-feedback');
+        feedback.textContent = result;
+
+        if (!response.ok) {
+          systemSaving = false;
+        }
+
+        if (result.ok) {
+            document.getElementById('name-input').disabled = true;
+            document.querySelector('#result-form button').disabled = true;
+            
+            setTimeout(() => {
+                document.getElementById('result-modal').style.display = 'none';
+              systemSaving = false;
+            }, 1500);
+        }
+    } catch (error) {
+        document.getElementById('result-feedback').textContent = 'Der opstod en fejl ved gem af resultatet.';
+    }
+  });
 
     modalWpm.textContent = `Ord i minuttet: ${wpm}`;
     modalAccuracy.textContent = `Præcision: ${accuracy}%`;
@@ -163,49 +206,32 @@
     const resultForm = document.getElementById("result-form");
     const feedback = document.getElementById("result-feedback");
 
-    if (!resultForm.dataset.initialized) {
-      resultForm.onsubmit = async (e) => {
-        e.preventDefault();
-        const name = document.getElementById("name-input").value;
+    resultForm.onsubmit = async (e) => {
+      e.preventDefault();
+      const name = document.getElementById("name-input").value;
 
-        try {
-          systemSaving = true;
-          const response = await fetch("../code/save_result.php", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/x-www-form-urlencoded",
-            },
-            body: `name=${encodeURIComponent(name)}&wpm=${wpm}&accuracy=${accuracy}&raw=${rawCharacters}&errors=${errorCount}`,
-          });
+      try {
+        const response = await fetch("../code/save_result.php", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+          body: `name=${encodeURIComponent(name)}&wpm=${wpm}&accuracy=${accuracy}&raw=${rawCharacters}&errors=${errorCount}`,
+        });
 
-          const result = await response.text();
-          feedback.textContent = result;
-          feedback.style.color = "#d1d0c5";
-
-          if (response.ok) {
-            document.getElementById("name-input").disabled = true;
-            document.querySelector("#result-form button").disabled = true;
-
-            setTimeout(() => {
-              resultModal.style.display = "none";
-              displayingResult = false;
-              systemSaving = false;
-            }, 1500);
-          }
-        } catch (error) {
-          feedback.textContent = "Fejl ved indsendelse: " + error;
-          feedback.style.color = "#ca4754";
-          systemSaving = false;
-        }
+        const result = await response.text();
+        feedback.textContent = result;
+        feedback.style.color = "#d1d0c5";
 
         setTimeout(() => {
           feedback.textContent = "";
           resultForm.reset();
         }, 2000);
-      };
-
-      resultForm.dataset.initialized = "true";
-    }
+      } catch (error) {
+        feedback.textContent = "Fejl ved indsendelse: " + error;
+        feedback.style.color = "#ca4754";
+      }
+    };
   }
 
   modalClose.addEventListener("click", () => {
