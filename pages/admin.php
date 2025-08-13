@@ -1,10 +1,6 @@
 <?php
-$servername = "172.16.3.24";
-$username = "root";
-$password = "test";
-$dbname = "skptyping";
+require '../db/db_conn.php';
 
-$conn = new mysqli($servername, $username, $password, $dbname);
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
@@ -258,7 +254,7 @@ $conn->close();
 <body>
 <div class="container">
     <h1>Administrationspanel</h1>
-    <form method="post" action="admin.php">
+    <form method="post" action="../pages/admin.php">
         <input type="hidden" name="action" value="add">
         <input type="text" name="sentence" maxlength="500" placeholder="Indtast en sætning" title="Indtast en sætning" required oninvalid="this.setCustomValidity('Indtast en sætning')">
         <button type="submit" id="submit">Tilføj sætning</button>
@@ -300,7 +296,7 @@ $conn->close();
     </table>
 </div>
 <div class="nav-buttons">
-  <a href="leaderboard.php" class="nav-left">Leaderboard</a>
+  <a href="../pages/leaderboard.php" class="nav-left">Leaderboard</a>
   <a href="../pages/index.php" class="nav-right">Forside</a>
 </div>
 </body>
