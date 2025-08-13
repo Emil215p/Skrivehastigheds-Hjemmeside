@@ -9,7 +9,7 @@ if (isset($_SERVER['REQUEST_METHOD'])) {
 
 error_log("POST Data: " . print_r($_POST, true));
 
-require 'db/db_conn.php';
+require '../db/db_conn.php';
 
 if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] == "POST") {
     $name = $_POST['name'] ?? '';

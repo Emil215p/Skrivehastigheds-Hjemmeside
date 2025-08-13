@@ -62,7 +62,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } else {
         error_log("No action specified in POST data.");
     }
-    header("Location: admin.php");
+    header("Location: ../pages/admin.php");
     exit;
 }
 
@@ -301,7 +301,7 @@ $conn->close();
 </div>
 <div class="nav-buttons">
   <a href="leaderboard.php" class="nav-left">Leaderboard</a>
-  <a href="index.php" class="nav-right">Forside</a>
+  <a href="../pages/index.php" class="nav-right">Forside</a>
 </div>
 </body>
 </html>

@@ -1,5 +1,5 @@
 <?php
-require 'db/db_conn.php';
+require '../db/db_conn.php';
 
 // Added 'id' in case you want to use it later for unique identification
 $sql = "SELECT id, navn, raw, errors, wpm, præcision, (wpm * præcision) AS points 
@@ -179,7 +179,7 @@ $result = $conn->query($sql);
       color: var(--text-display-color);
     }
   </style>
-  <link rel="stylesheet" href="shared.css">
+  <link rel="stylesheet" href="../css/shared.css">
 </head>
 <body>
 <div class="container">
@@ -247,7 +247,7 @@ document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('.leaderboard-row').forEach(row => {
     row.addEventListener('click', async () => {
       const id = row.getAttribute('data-id');
-      const response = await fetch(`get_user_stats.php?id=${encodeURIComponent(id)}`);
+      const response = await fetch(`../code/get_user_stats.php?id=${encodeURIComponent(id)}`);
       const data = await response.json();
       
       updateModal(data);

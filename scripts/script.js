@@ -24,7 +24,7 @@
   let rawCharacters = 0; // Total characters typed (including deleted and incorrect)
 
   function preFetchWords() {
-    return fetch("get_sentence.php")
+    return fetch("../code/get_sentence.php")
       .then((response) => {
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
@@ -172,7 +172,7 @@
 
     try {
         systemSaving = true;
-        const response = await fetch('save_result.php', {
+        const response = await fetch('../code/save_result.php', {
             method: 'POST',
             body: formData
         });
@@ -210,7 +210,7 @@
       const name = document.getElementById("name-input").value;
 
       try {
-        const response = await fetch("save_result.php", {
+        const response = await fetch("../code/save_result.php", {
           method: "POST",
           headers: {
             "Content-Type": "application/x-www-form-urlencoded",

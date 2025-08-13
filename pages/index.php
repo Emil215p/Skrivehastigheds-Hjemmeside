@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Skrive Hastighedstest</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet"/>
-    <link rel="stylesheet" href="style.css" />
-    <link rel="stylesheet" href="shared.css">
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="../css/shared.css">
   </head>
   <body>
   <div class="container">
@@ -35,8 +35,8 @@
       </div>
     </div>
     <div class="nav-buttons">
-      <a href="leaderboard.php" class="nav-left">Leaderboard</a>
+      <a href="../pages/leaderboard.php" class="nav-left">Leaderboard</a>
     </div>
-    <script src="script.js"></script>
+    <script src="../scripts/script.js"></script>
   </body>
 </html>

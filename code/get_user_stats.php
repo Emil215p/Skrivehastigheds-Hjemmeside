@@ -1,7 +1,7 @@
 <?php
 header('Content-Type: application/json');
 
-require 'db/db_conn.php';
+require '../db/db_conn.php';
 
 if (!isset($_GET['id'])) {
     die(json_encode(['error' => 'No id specified.']));
