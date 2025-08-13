@@ -1,7 +1,8 @@
 Project for a WPM website in Danish, this is a fork that i have been tasked to complete, below is status.
 
 To-do:
-Admin security.
+Admin security. (not needed, might do later.)
 Continue organizing and cleanup.
 Add function to admin panel to be able to delete words.
 Add page system in leaderboard as currently only top 10 entries can be shown.
+Fix quirks.
