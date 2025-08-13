@@ -172,7 +172,7 @@
 
     try {
         systemSaving = true;
-        const response = await fetch('gem_resultat.php', {
+        const response = await fetch('save_result.php', {
             method: 'POST',
             body: formData
         });
@@ -210,7 +210,7 @@
       const name = document.getElementById("name-input").value;
 
       try {
-        const response = await fetch("gem_resultat.php", {
+        const response = await fetch("save_result.php", {
           method: "POST",
           headers: {
             "Content-Type": "application/x-www-form-urlencoded",

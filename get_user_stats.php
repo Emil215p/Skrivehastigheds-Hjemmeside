@@ -18,7 +18,6 @@ if (!isset($_GET['id'])) {
 
 $id = $conn->real_escape_string($_GET['id']);
 
-// Fetch the specific record based on the unique id
 $sql = "SELECT navn, wpm, errors, præcision, raw, created_at 
         FROM resultater 
         WHERE id = '$id' LIMIT 1";
