@@ -1,2 +1,7 @@
-download xampp
-bruger php server - "php -S ip:8000"
+Project for a WPM website in Danish, this is a fork that i have been tasked to complete, below is status.
+
+To-do:
+Admin security.
+Continue organizing and cleanup.
+Fix issue where it submits results twice.
+Add function to admin panel to be able to delete words.

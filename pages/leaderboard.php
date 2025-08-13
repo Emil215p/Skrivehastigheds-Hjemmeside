@@ -210,7 +210,7 @@ $result = $conn->query($sql);
   </div>
 </div>
 <div class="nav-buttons">
-  <a href="index.php" class="nav-left">Forside</a>
+  <a href="../pages/index.php" class="nav-left">Forside</a>
 </div>
 <div id="userModal" class="modal">
   <div class="modal-content">

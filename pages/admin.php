@@ -249,7 +249,7 @@ $conn->close();
       border-top: 0.1vw solid rgb(53, 53, 53);
     }
   </style>
-  <link rel="stylesheet" href="shared.css">
+  <link rel="stylesheet" href="../css/shared.css">
 </head>
 <body>
 <div class="container">
